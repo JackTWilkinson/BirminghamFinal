@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post
+from .models import Post, WorkExperience
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, WorkExperienceForm
 from django.shortcuts import redirect
 
 def post_list(request):
@@ -42,4 +42,8 @@ def post_edit(request, pk):
 
 def resume_view(request):
     return render(request, 'blog/resume_view.html')
+
+def work_experience_list(request):
+    work_experiences = WorkExperience.objects.filter(published_date__lte=timezone.now()).order_by('start_date')
+    return render(request, 'blog/work_experience_list.html', {'work_experiences': work_experiences})
 
