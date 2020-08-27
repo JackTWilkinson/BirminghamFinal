@@ -6,5 +6,8 @@
             <h2>{{ work_experience.title }}</h2>
             <p>{{ work_experience.description }}</p>
         </div>
+        {% if forloop.last == False %}
+            <hr/>
+        {% endif %}
     {% endfor %}
 {% endblock %}

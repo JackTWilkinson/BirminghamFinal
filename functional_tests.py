@@ -21,16 +21,20 @@ class ResumeViewTest(unittest.TestCase):
         self.assertIn("Jack's Resume", self.browser.title)
         header_text = self.browser.find_element_by_id('name').text
         self.assertIn('Jack Thomas Wilkinson', header_text)
-        work_experience = self.browser.find_element_by_id('work-experience')
-        self.assertTrue(work_experience)
 
-# User logs in and adds a new work experience
+    def test_create_and_view_work_experience(self):
+        self.browser.get('http://localhost:8000/resume/view')
+        # User logs in and adds a new work experience and view it
+        content_container = self.browser.find_element_by_class_name('content container')
+        rows = content_container.find_element_by_class_name('row')
+        self.assertTrue(
+            any(row.title == 'BurgerFlipper' for row in rows)
+        )
 
 # User edits the work experience
-
 # User deletes the work experience
 
-# User creates an interest
+    # User creates an interest
 
 # User edits an interest
 

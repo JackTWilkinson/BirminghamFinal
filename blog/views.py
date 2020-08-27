@@ -44,6 +44,6 @@ def resume_view(request):
     return render(request, 'blog/resume_view.html')
 
 def work_experience_list(request):
-    work_experiences = WorkExperience.objects.filter(published_date__lte=timezone.now()).order_by('start_date')
+    work_experiences = WorkExperience.objects.filter(start_date__lte=timezone.now()).order_by('start_date')
     return render(request, 'blog/work_experience_list.html', {'work_experiences': work_experiences})
 
