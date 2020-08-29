@@ -10,4 +10,7 @@ urlpatterns = [
     path('work_experience/new', views.work_experience_new, name='work_experience_new'),
     path('work_experience/<int:pk>/edit', views.work_experience_edit, name='work_experience_edit'),
     path('work_experience/<int:pk>/', views.work_experience_detail, name='work_experience_detail'),
+    path('interest/<int:pk>/', views.interest_detail, name='interest_detail'),
+    path('interest/new/', views.interest_new, name='interest_new'),
+    path('interest/<int:pk>/edit', views.interest_edit, name='interest_edit'),
 ]

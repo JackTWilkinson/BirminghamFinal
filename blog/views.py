@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.utils import timezone
 from .models import Post, WorkExperience, Interest
 from django.shortcuts import render, get_object_or_404
@@ -91,6 +90,7 @@ def work_experience_edit(request, pk):
         form = WorkExperienceForm(instance=work_experience)
     return render(request, 'blog/work_experience_edit.html', {'form': form})
 
+
 def interest_new(request):
     if request.method == "POST":
         form = InterestForm(request.POST)
@@ -102,4 +102,24 @@ def interest_new(request):
             return redirect('post_detail', pk=interest.pk)
     else:
         form = InterestForm()
+    return render(request, 'blog/interest_edit.html', {'form': form})
+
+
+def interest_detail(request, pk):
+    interest = get_object_or_404(Interest, pk=pk)
+    return render(request, 'blog/interest_detail.html', {'interest': interest})
+
+
+def interest_edit(request, pk):
+    interest = get_object_or_404(Interest, pk=pk)
+    if request.method == "POST":
+        form = InterestForm(request.POST, instance=interest)
+        if form.is_valid():
+            interest = form.save(commit=False)
+            interest.author = request.user
+            interest.published_date = timezone.now()
+            interest.save()
+            return redirect('interest_detail', pk=interest.pk)
+    else:
+        form = InterestForm(instance=interest)
     return render(request, 'blog/interest_edit.html', {'form': form})
