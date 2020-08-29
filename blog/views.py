@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
-from .models import Post, WorkExperience
+from .models import Post, WorkExperience, Interest
 from django.shortcuts import render, get_object_or_404
-from .forms import PostForm, WorkExperienceForm
+from .forms import PostForm, WorkExperienceForm, InterestForm
 from django.shortcuts import redirect
 
 
@@ -49,9 +49,18 @@ def resume_view(request):
     return render(request, 'blog/resume_view.html')
 
 
+def work_experience_detail(request, pk):
+    work_experience = get_object_or_404(WorkExperience, pk=pk)
+    return render(request, 'blog/work_experience_detail.html', {'work_experience': work_experience})
+
+
 def work_experience_list(request):
     work_experiences = WorkExperience.objects.filter(start_date__lte=timezone.now()).order_by('start_date')
-    return render(request, 'blog/work_experience_list.html', {'work_experiences': work_experiences})
+    interests = Interest.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'blog/work_experience_list.html', {
+        'work_experiences': work_experiences,
+        'interests': interests
+    })
 
 
 def work_experience_new(request):
@@ -62,7 +71,35 @@ def work_experience_new(request):
             work_experience.uuid = request.user
             work_experience.start_date = timezone.now()
             work_experience.save()
-            return redirect('resume/view', pk=work_experience.pk)
+            return redirect('work_experience_detail', pk=work_experience.pk)
     else:
         form = WorkExperienceForm()
     return render(request, 'blog/work_experience_edit.html', {'form': form})
+
+
+def work_experience_edit(request, pk):
+    work_experience = get_object_or_404(WorkExperience, pk=pk)
+    if request.method == "POST":
+        form = WorkExperienceForm(request.POST, instance=work_experience)
+        if form.is_valid():
+            work_experience = form.save(commit=False)
+            work_experience.uuid = request.user
+            work_experience.start_date = timezone.now()
+            work_experience.save()
+            return redirect('work_experience_detail', pk=work_experience.pk)
+    else:
+        form = WorkExperienceForm(instance=work_experience)
+    return render(request, 'blog/work_experience_edit.html', {'form': form})
+
+def interest_new(request):
+    if request.method == "POST":
+        form = InterestForm(request.POST)
+        if form.is_valid():
+            interest = form.save(commit=False)
+            interest.author = request.user
+            interest.published_date = timezone.now()
+            interest.save()
+            return redirect('post_detail', pk=interest.pk)
+    else:
+        form = InterestForm()
+    return render(request, 'blog/interest_edit.html', {'form': form})

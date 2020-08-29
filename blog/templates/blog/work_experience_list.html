@@ -2,13 +2,36 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-            <a href="{% url 'work_experience_new' %}" class="top-menu"><span class="fa-github"></span></a>
-        {% endif %}
+            <a href="{% url 'work_experience_new' %}" class="top-menu"><span class="fa-github""></span></a>
+    {% endif %}
     {%  for work_experience in work_experiences %}
         <div class="work-experience">
-            <h2>{{ work_experience.title }}</h2>
+            <h2><a href="{% url 'work_experience_detail' pk=work_experience.pk %}">{{ work_experience.title }}</a></h2>
             <p>{{ work_experience.description }}</p>
+            <p>{{ work_experience.start_date }}</p>
+            <p>{{ work_experience.end_date }}</p>
         </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'work_experience_edit' pk=work_experience.pk%}" class="glyphicon glyphicon-pencil"></a>
+        {% endif %}
+
+        {% if forloop.last == False %}
+            <hr/>
+        {% endif %}
+    {% endfor %}
+    <hr>
+    {% if user.is_authenticated %}
+            <a href="{% url 'interest_new' %}" class="top-menu"><span class="fa-github""></span></a>
+    {% endif %}
+    {% for interest in interests %}
+        <div class="interest">
+            <h2><a href="">{{ interest.title }}</a></h2>
+            <p>{{ interest.description }}</p>
+        </div>
+        {% if user.is_authenticated %}
+            <a href="" class="glyphicon glyphicon-pencil"></a>
+        {% endif %}
+
         {% if forloop.last == False %}
             <hr/>
         {% endif %}

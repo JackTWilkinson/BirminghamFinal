@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="work-experience">
+        <h2>{{ work_experience.title }}</h2>
+        <p>{{ work_experience.description }}</p>
+        <p>{{ work_experience.start_date }}</p>
+        <p>{{ work_experience.end_date }}</p>
+    </div>
+{% endblock %}
