@@ -1,8 +1,9 @@
 from django.utils import timezone
 from .models import Post, WorkExperience, Interest
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from .forms import PostForm, WorkExperienceForm, InterestForm
 from django.shortcuts import redirect
+from django.views.generic.edit import DeleteView
 
 
 def post_list(request):
@@ -42,6 +43,14 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        post.delete()
+        return HttpResponseRedirect('/')
+    return render(request, 'blog/post_delete.html')
 
 
 def resume_view(request):
@@ -91,6 +100,14 @@ def work_experience_edit(request, pk):
     return render(request, 'blog/work_experience_edit.html', {'form': form})
 
 
+def work_experience_delete(request, pk):
+    work_experience = get_object_or_404(WorkExperience, pk=pk)
+    if request.method == "POST":
+        work_experience.delete()
+        return HttpResponseRedirect('/resume/view')
+    return render(request, 'blog/work_experience_delete.html')
+
+
 def interest_new(request):
     if request.method == "POST":
         form = InterestForm(request.POST)
@@ -99,7 +116,7 @@ def interest_new(request):
             interest.author = request.user
             interest.published_date = timezone.now()
             interest.save()
-            return redirect('post_detail', pk=interest.pk)
+            return redirect('interest_detail', pk=interest.pk)
     else:
         form = InterestForm()
     return render(request, 'blog/interest_edit.html', {'form': form})
@@ -123,3 +140,11 @@ def interest_edit(request, pk):
     else:
         form = InterestForm(instance=interest)
     return render(request, 'blog/interest_edit.html', {'form': form})
+
+
+def interest_delete(request, pk):
+    interest = get_object_or_404(Interest, pk=pk)
+    if request.method == "POST":
+        interest.delete()
+        return HttpResponseRedirect('/resume/view')
+    return render(request, 'blog/interest_delete.html')

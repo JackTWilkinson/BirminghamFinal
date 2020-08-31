@@ -13,4 +13,7 @@ urlpatterns = [
     path('interest/<int:pk>/', views.interest_detail, name='interest_detail'),
     path('interest/new/', views.interest_new, name='interest_new'),
     path('interest/<int:pk>/edit', views.interest_edit, name='interest_edit'),
+    path('interest/<int:pk>/delete', views.interest_delete, name='interest_delete'),
+    path('work_experience/<int:pk>/delete', views.work_experience_delete, name='work_experience_delete'),
+    path('post/<int:pk>/delete', views.post_delete, name='post_delete')
 ]
