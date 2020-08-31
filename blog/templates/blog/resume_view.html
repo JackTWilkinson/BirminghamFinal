@@ -6,63 +6,64 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/resume.css' %}">
     </head>
     <body>
     <div class="page-header">
         <h1><a href="/">Jack's Fun Blog</a></h1>
         <h1><a href="/resume/view">Jack's Professional Resume</a></h1>
     </div>
-    <div id="resume-base">
-        <h2 id="name">Jack Thomas Wilkinson</h2>
-        <div id="contact-info">
-            <h2>wilkinsonjthomas@gmail.com</h2>
-            <h2>2811 West Street Unit #205 <br/> Ames, IA 50014</h2>
-        </div>
-    <hr>
-        <div>
-            <h3>Education</h3>
-            <div class="education">
-                <h3>Iowa State University</h3>
+    <div class="resume-base">
+        <h2>Jack Thomas Wilkinson</h2>
+        <h2>wilkinsonjthomas@gmail.com</h2>
+        <h2>1-(608)-322-2284</h2>
+        <h2>2811 West Street Unit #205 <br/> Ames, IA 50014</h2>
+        <hr>
+        <div class="education-wrapper">
+            <h3 id="education">Education</h3>
+            <div class="degree">
+                <h3><b>Iowa State University</b></h3>
                 <h4>Bachelor's in Computer Engineering and Science</h4>
                 <h4>GPA - 3.01</h4>
                 <h4>Attended August 2017 - May 2022</h4>
             </div>
-            <div class="education">
-                <h3>Iowa State University</h3>
+            <div class="degree">
+                <h3><b>Iowa State University</b></h3>
                 <h4>Master's in Business Management</h4>
-                <h4>GPA - N/A</h4>
+                <h4>     GPA - N/A</h4>
                 <h4>Attended August 2020 - May 2022</h4>
             </div>
-            <hr>
-            <div>
-                <h3>Objective Statement</h3>
-                <p>
-                    I am a results-oriented Computer Engineering and Business Masters student with abundant team experience
-                    and a background in web-development. <br> I hope to both improve at web-development and expand my
-                    skills to include other programming disciplines so that I may improve my abilities as a developer.
-                </p>
-            </div>
-            <hr>
         </div>
-        <div class="content container">
-            <div class="row">
-            <h2>Work Experiences</h2>
-                <div class="col-md-8">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
+        <hr>
+        <div class="objective-statement">
+            <h3><b>Objective Statement</b></h3>
+            <p>
+                I am a results-oriented Computer Engineering and Business Masters student with abundant team experience
+                and a background in web-development. <br> I hope to both improve at web-development and expand my
+                skills to include other programming disciplines so that I may improve my abilities as a developer.
+            </p>
         </div>
-        <div>
-            <h2>TEST ME</h2>
-            <p>Test paragraph at the end</p>
+        <hr>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
     </div>
+    <hr>
+    <div class="closing-statement">
+        <h3>
+            If you have any further inquiries, please contact me at the listed number or email. <br/>
+            I am unable to receive phone calls before 8am or after 10pm (CST).
+        </h3>
+    </div>
+    </body>
     <div id="footer">
         <a href="https://www.facebook.com/IowaStateU/" class="fa fa-facebook"></a>
         <a href="https://github.com/JackTWilkinson" class="fa fa-github"></a>
         <a href="https://twitter.com/martinfowler" class="fa fa-twitter"></a>
     </div>
-    </body>
 </html>
