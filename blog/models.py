@@ -1,10 +1,11 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth import get_user_model
 from django.utils import timezone
 
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -37,7 +38,7 @@ class WorkExperience(models.Model):
     title = models.CharField(max_length=200)
     company = models.CharField(max_length=100)
     description = models.TextField()
-    start_date = models.DateField(default=timezone.now())
+    start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
 
     def publish(self):
